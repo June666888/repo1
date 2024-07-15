@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <!--加载properties文件-->
+    <properties resource="jdbc.properties"></properties>
+
+    <!--设置别名-->
+    <typeAliases>
+        <!--方式一：给单个实体起别名-->
+        <!--<typeAlias type="com.june.domain.User" alias="user"></typeAlias>-->
+
+        <!--方式二：批量起别名。别名就是类名，且不区分大小写-->
+        <package name="com.june.domain"/>
+    </typeAliases>
+
+    <!--environments：运行环境（生产/开发下的环境不一样，可以有多个environment）-->
+    <!--环境配置-->
+    <environments default="development">
+        <!--使用MySQL环境-->
+        <environment id="development">
+            <!--使用JDBC类型的事务管理器-->
+            <transactionManager type="JDBC"></transactionManager>
+
+            <!--数据源信息 -->
+            <!--POOLED：使用mybatis的连接池-->
+            <dataSource type="POOLED">
+                <!--关于数据库的一些属性-->
+                <property name="driver" value="${jdbc.driver}"></property><!--value的值和properties文件中的属性保持一致-->
+                <property name="url" value="${jdbc.url}"></property><!--跟数据库的名称-->
+                <property name="username" value="${jdbc.username}"></property>
+                <property name="password" value="${jdbc.password}"></property>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--引入映射配置文件-->
+    <mappers>
+        <mapper resource="mapper/UserMapper.xml"></mapper>
+    </mappers>
+</configuration>
